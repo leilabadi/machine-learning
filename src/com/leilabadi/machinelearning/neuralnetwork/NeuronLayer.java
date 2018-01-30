@@ -11,10 +11,10 @@ public class NeuronLayer {
         return neurons;
     }
 
-    public void activate(ActivationSet activations) {
+    public void activate(float[] activations) {
     }
 
-    public ActivationSet getOutput() {
+    public float[] getOutput() {
         return null;
     }
 }

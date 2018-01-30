@@ -9,7 +9,7 @@ public abstract class NeuralNetwork {
         this.layers = layers;
     }
 
-    abstract void load(Matrix matrix);
+    public abstract void activate(NeuralNetworkInputAdapter inputAdapter);
 
-    abstract ActivationSet getOutput();
+    public abstract float[] getOutput();
 }

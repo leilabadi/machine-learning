@@ -1,7 +1,5 @@
 package com.leilabadi.machinelearning.neuralnetwork;
 
-import com.leilabadi.machinelearning.common.Matrix;
-
 public class SimpleNetwork extends NeuralNetwork {
 
     public SimpleNetwork(NeuronLayer[] layers) {
@@ -9,12 +7,12 @@ public class SimpleNetwork extends NeuralNetwork {
     }
 
     @Override
-    void load(Matrix matrix) {
-
+    public void activate(NeuralNetworkInputAdapter inputAdapter) {
+        layers[0].activate(inputAdapter.getActivations());
     }
 
     @Override
-    public ActivationSet getOutput() {
-        return null;
+    public float[] getOutput() {
+        return layers[layers.length - 1].getOutput();
     }
 }
