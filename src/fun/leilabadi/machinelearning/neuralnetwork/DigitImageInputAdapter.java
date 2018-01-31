@@ -1,6 +1,4 @@
-package com.leilabadi.machinelearning.neuralnetwork;
-
-import com.leilabadi.machinelearning.common.Matrix;
+package fun.leilabadi.machinelearning.neuralnetwork;
 
 public class DigitImageInputAdapter implements NeuralNetworkInputAdapter {
 

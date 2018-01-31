@@ -1,6 +1,8 @@
-package com.leilabadi.machinelearning.neuralnetwork;
+package fun.leilabadi.machinelearning.neuralnetwork;
 
-import com.leilabadi.machinelearning.Constants;
+import fun.leilabadi.machinelearning.Constants;
+
+import java.util.Random;
 
 public class DigitRecognitionNeuralNetworkBuilder extends NeuralNetworkBuilder {
 
@@ -61,10 +63,13 @@ public class DigitRecognitionNeuralNetworkBuilder extends NeuralNetworkBuilder {
     }
 
     private void bindNeuronLinks(Neuron neuron, NeuronLayer previousLayer, NeuronLayer nextLayer) {
+
+        Random random = new Random();
+
         if (previousLayer != null) {
             final Link[] inputLinks = new Link[previousLayer.getNeurons().length];
             for (int i = 0; i < previousLayer.getNeurons().length; i++) {
-                inputLinks[i] = new Link(previousLayer.getNeurons()[i], neuron);
+                inputLinks[i] = new Link(previousLayer.getNeurons()[i], neuron, random.nextFloat());
             }
             neuron.setInputLinks(inputLinks);
         }
@@ -72,7 +77,7 @@ public class DigitRecognitionNeuralNetworkBuilder extends NeuralNetworkBuilder {
         if (nextLayer != null) {
             final Link[] outputLinks = new Link[nextLayer.getNeurons().length];
             for (int i = 0; i < nextLayer.getNeurons().length; i++) {
-                outputLinks[i] = new Link(neuron, nextLayer.getNeurons()[i]);
+                outputLinks[i] = new Link(neuron, nextLayer.getNeurons()[i], random.nextFloat());
             }
             neuron.setOutputLinks(outputLinks);
         }

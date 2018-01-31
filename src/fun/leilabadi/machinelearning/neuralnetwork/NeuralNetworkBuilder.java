@@ -1,4 +1,4 @@
-package com.leilabadi.machinelearning.neuralnetwork;
+package fun.leilabadi.machinelearning.neuralnetwork;
 
 public abstract class NeuralNetworkBuilder {
 

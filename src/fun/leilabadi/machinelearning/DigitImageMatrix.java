@@ -1,6 +1,6 @@
-package com.leilabadi.machinelearning;
+package fun.leilabadi.machinelearning;
 
-import com.leilabadi.machinelearning.common.SquareMatrix;
+import fun.leilabadi.machinelearning.common.SquareMatrix;
 
 public class DigitImageMatrix extends SquareMatrix {
 

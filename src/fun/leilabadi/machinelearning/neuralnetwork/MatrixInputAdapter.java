@@ -1,6 +1,6 @@
-package com.leilabadi.machinelearning.neuralnetwork;
+package fun.leilabadi.machinelearning.neuralnetwork;
 
-import com.leilabadi.machinelearning.common.Matrix;
+import fun.leilabadi.machinelearning.common.Matrix;
 
 public class MatrixInputAdapter implements NeuralNetworkInputAdapter {
     private final Matrix matrix;

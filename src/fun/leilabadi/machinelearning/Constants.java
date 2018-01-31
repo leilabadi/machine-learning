@@ -1,4 +1,4 @@
-package com.leilabadi.machinelearning;
+package fun.leilabadi.machinelearning;
 
 public class Constants {
     public static final int DIGIT_COUNT = 10;

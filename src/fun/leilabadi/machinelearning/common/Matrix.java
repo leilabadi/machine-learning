@@ -1,4 +1,4 @@
-package com.leilabadi.machinelearning.common;
+package fun.leilabadi.machinelearning.common;
 
 public class Matrix {
     private final int rowCount;

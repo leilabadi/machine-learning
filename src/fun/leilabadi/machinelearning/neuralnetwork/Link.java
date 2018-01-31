@@ -1,4 +1,4 @@
-package com.leilabadi.machinelearning.neuralnetwork;
+package fun.leilabadi.machinelearning.neuralnetwork;
 
 public class Link {
     private final Neuron startingNeuron;
@@ -8,6 +8,12 @@ public class Link {
     public Link(Neuron startingNeuron, Neuron endingNeuron) {
         this.startingNeuron = startingNeuron;
         this.endingNeuron = endingNeuron;
+    }
+
+    public Link(Neuron startingNeuron, Neuron endingNeuron, float weight) {
+        this.startingNeuron = startingNeuron;
+        this.endingNeuron = endingNeuron;
+        this.weight = weight;
     }
 
     public Neuron getStartingNeuron() {

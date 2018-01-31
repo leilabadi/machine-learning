@@ -1,4 +1,4 @@
-package com.leilabadi.machinelearning.neuralnetwork.functions;
+package fun.leilabadi.machinelearning.neuralnetwork.functions;
 
 public class SigmoidFunction implements NormalizationFunction {
 
