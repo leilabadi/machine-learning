@@ -15,7 +15,9 @@ public class NeuralNetworkFrame extends JFrame {
     public NeuralNetworkFrame(NeuralNetwork network) {
         super("Neural Network");
 
-        visualizer = new NeuralNetworkVisualizerImpl(network);
+        NeuralNetworkGraphicCalculator calculator = new NeuralNetworkGraphicCalculator(network);
+        visualizer = new NeuralNetworkVisualizerImpl(calculator);
+
         setSize(800, 600);
         setLayout(new BorderLayout());
         setVisible(true);

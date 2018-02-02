@@ -1,6 +1,6 @@
 package fun.leilabadi.machinelearning.neuralnetwork.graphic;
 
-import fun.leilabadi.machinelearning.neuralnetwork.NeuralNetwork;
+import java.util.List;
 
 public interface NeuralNetworkVisualizer {
 

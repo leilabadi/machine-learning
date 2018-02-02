@@ -18,7 +18,8 @@ public class DigitRecognitionNeuralNetworkBuilder extends NeuralNetworkBuilder {
         final int[] neuronCounts = new int[]{
                 Constants.DIGIT_NETWORK_LAYER1_NEURON_COUNT,
                 Constants.DIGIT_NETWORK_LAYER2_NEURON_COUNT,
-                Constants.DIGIT_NETWORK_LAYER3_NEURON_COUNT};
+                Constants.DIGIT_NETWORK_LAYER3_NEURON_COUNT,
+                Constants.DIGIT_NETWORK_LAYER4_NEURON_COUNT};
 
         for (int i = 0; i < neuronCounts.length; i++) {
             layers[i] = createLayer(neuronCounts[i]);
@@ -39,11 +40,13 @@ public class DigitRecognitionNeuralNetworkBuilder extends NeuralNetworkBuilder {
         }
 
         //bind middle layer
-        previousLayer = network.layers[0];
-        currentLayer = network.layers[1];
-        nextLayer = network.layers[2];
-        for (Neuron neuron : currentLayer.getNeurons()) {
-            bindNeuronLinks(neuron, previousLayer, nextLayer);
+        for (int i = 1; i < network.getLayers().length - 1; i++) {
+            previousLayer = network.layers[i - 1];
+            currentLayer = network.layers[i];
+            nextLayer = network.layers[i + 1];
+            for (Neuron neuron : currentLayer.getNeurons()) {
+                bindNeuronLinks(neuron, previousLayer, nextLayer);
+            }
         }
 
         //bind last layer

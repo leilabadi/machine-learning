@@ -1,21 +1,18 @@
 package fun.leilabadi.machinelearning.neuralnetwork.graphic;
 
-import fun.leilabadi.machinelearning.neuralnetwork.NeuralNetwork;
-import fun.leilabadi.machinelearning.neuralnetwork.NeuronLayer;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 public class NeuralNetworkVisualizerImpl extends JComponent implements NeuralNetworkVisualizer {
-    private final NeuralNetwork network;
+    private final NeuralNetworkGraphicCalculator calculator;
+    private LayerGraphic[] layerGraphics;
     private BufferedImage buffer;
 
-    public NeuralNetworkVisualizerImpl(NeuralNetwork network) {
-        this.network = network;
+    public NeuralNetworkVisualizerImpl(NeuralNetworkGraphicCalculator calculator) {
+        this.calculator = calculator;
         init();
 
         addComponentListener(new ComponentAdapter() {
@@ -28,19 +25,19 @@ public class NeuralNetworkVisualizerImpl extends JComponent implements NeuralNet
     }
 
     private void init() {
+        layerGraphics = calculator.calculateNeurons(getWidth(), getHeight());
+        repaint();
     }
 
     private void drawNetwork(Graphics2D graphics) {
-        graphics.setColor(Color.YELLOW);
-
-        final double layerDistance = (double) getWidth() / network.getLayers().length;
-
-        double x = layerDistance / 2;
-        Rectangle2D.Double rectangle;
-        for (NeuronLayer layer : network.getLayers()) {
-            rectangle = new Rectangle2D.Double(x, 0, 10, getHeight());
-            graphics.fill(rectangle);
-            x += layerDistance;
+        for (LayerGraphic layer : layerGraphics) {
+            graphics.setColor(Color.white);
+            for (NeuronGraphic item : layer.getNeurons()) {
+                graphics.fill(item.getNeuronShape());
+                for (Shape line : item.getLinkLines()) {
+                    graphics.draw(line);
+                }
+            }
         }
     }
 
