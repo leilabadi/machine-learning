@@ -6,9 +6,7 @@ import fun.leilabadi.machinelearning.neuralnetwork.DigitRecognitionNeuralNetwork
 import fun.leilabadi.machinelearning.neuralnetwork.NeuralNetwork;
 import fun.leilabadi.machinelearning.neuralnetwork.NeuralNetworkBuilder;
 import fun.leilabadi.machinelearning.neuralnetwork.NeuralNetworkDirector;
-import fun.leilabadi.machinelearning.neuralnetwork.graphic.NeuralNetworkFrame;
-import fun.leilabadi.machinelearning.neuralnetwork.graphic.NeuralNetworkVisualizer;
-import fun.leilabadi.machinelearning.neuralnetwork.graphic.NeuralNetworkVisualizerImpl;
+import fun.leilabadi.machinelearning.neuralnetwork.ui.NetworkFrame;
 
 public class App {
 
@@ -21,9 +19,9 @@ public class App {
         NeuralNetworkDirector director = new NeuralNetworkDirector();
         NeuralNetwork network = director.build(builder);
 
-        NeuralNetworkFrame frame= new NeuralNetworkFrame(network);
+        NetworkFrame frame= new NetworkFrame(network);
 
-        /*NeuralNetworkInputAdapter inputAdapter = new MatrixInputAdapter(matrix);
+        /*ActivationAdapter inputAdapter = new MatrixActivationAdapter(matrix);
         network.activate(inputAdapter);
 
         float[] expectedResult = new float[Constants.DIGIT_COUNT];

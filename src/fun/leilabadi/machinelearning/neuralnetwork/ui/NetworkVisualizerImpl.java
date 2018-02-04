@@ -1,4 +1,9 @@
-package fun.leilabadi.machinelearning.neuralnetwork.graphic;
+package fun.leilabadi.machinelearning.neuralnetwork.ui;
+
+import fun.leilabadi.machinelearning.neuralnetwork.viewmodels.LayerViewModel;
+import fun.leilabadi.machinelearning.neuralnetwork.viewmodels.LinkViewModel;
+import fun.leilabadi.machinelearning.neuralnetwork.viewmodels.NetworkViewModel;
+import fun.leilabadi.machinelearning.neuralnetwork.viewmodels.NeuronViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,13 +11,13 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.image.BufferedImage;
 
-public class NeuralNetworkVisualizerImpl extends JComponent implements NeuralNetworkVisualizer {
-    private final NeuralNetworkGraphicCalculator calculator;
-    private LayerGraphic[] layerGraphics;
+public class NetworkVisualizerImpl extends JComponent implements NetworkVisualizer {
+    private final ViewModelBuilder viewModelBuilder;
+    private NetworkViewModel networkViewModel;
     private BufferedImage buffer;
 
-    public NeuralNetworkVisualizerImpl(NeuralNetworkGraphicCalculator calculator) {
-        this.calculator = calculator;
+    public NetworkVisualizerImpl(ViewModelBuilder viewModelBuilder) {
+        this.viewModelBuilder = viewModelBuilder;
         init();
 
         addComponentListener(new ComponentAdapter() {
@@ -25,17 +30,18 @@ public class NeuralNetworkVisualizerImpl extends JComponent implements NeuralNet
     }
 
     private void init() {
-        layerGraphics = calculator.calculateNeurons(getWidth(), getHeight());
+        networkViewModel = viewModelBuilder.buildNetwork(getWidth(), getHeight());
         repaint();
     }
 
     private void drawNetwork(Graphics2D graphics) {
-        for (LayerGraphic layer : layerGraphics) {
-            graphics.setColor(Color.white);
-            for (NeuronGraphic item : layer.getNeurons()) {
+        for (LayerViewModel layer : networkViewModel.getLayers()) {
+            for (NeuronViewModel item : layer.getNeurons()) {
+                graphics.setColor(Color.white);
                 graphics.fill(item.getNeuronShape());
-                for (Shape line : item.getLinkLines()) {
-                    graphics.draw(line);
+                for (LinkViewModel link : item.getLinks()) {
+                    graphics.setPaint(link.getPaint());
+                    graphics.draw(link.getLinkShape());
                 }
             }
         }
@@ -58,7 +64,7 @@ public class NeuralNetworkVisualizerImpl extends JComponent implements NeuralNet
     }
 
     @Override
-    public void showData() {
+    public void showActivation() {
         repaint();
     }
 }

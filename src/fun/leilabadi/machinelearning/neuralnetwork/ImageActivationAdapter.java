@@ -1,6 +1,6 @@
 package fun.leilabadi.machinelearning.neuralnetwork;
 
-public class DigitImageInputAdapter implements NeuralNetworkInputAdapter {
+public class ImageActivationAdapter implements ActivationAdapter {
 
     @Override
     public float[] getActivations() {

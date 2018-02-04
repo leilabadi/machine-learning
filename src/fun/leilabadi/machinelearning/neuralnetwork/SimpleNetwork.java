@@ -7,8 +7,8 @@ public class SimpleNetwork extends NeuralNetwork {
     }
 
     @Override
-    public void activate(NeuralNetworkInputAdapter inputAdapter) {
-        layers[0].activate(inputAdapter.getActivations());
+    protected void activateFirstLayer(ActivationAdapter adapter) {
+        layers[0].activate(adapter.getActivations());
     }
 
     @Override

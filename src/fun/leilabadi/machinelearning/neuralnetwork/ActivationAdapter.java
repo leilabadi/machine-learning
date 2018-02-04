@@ -1,6 +1,6 @@
 package fun.leilabadi.machinelearning.neuralnetwork;
 
-public interface NeuralNetworkInputAdapter {
+public interface ActivationAdapter {
 
     float[] getActivations();
 }

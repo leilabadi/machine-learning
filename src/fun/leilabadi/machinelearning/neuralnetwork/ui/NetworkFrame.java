@@ -1,5 +1,6 @@
-package fun.leilabadi.machinelearning.neuralnetwork.graphic;
+package fun.leilabadi.machinelearning.neuralnetwork.ui;
 
+import fun.leilabadi.machinelearning.neuralnetwork.ActivationListener;
 import fun.leilabadi.machinelearning.neuralnetwork.NeuralNetwork;
 
 import javax.swing.*;
@@ -7,16 +8,16 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class NeuralNetworkFrame extends JFrame {
-    private NeuralNetworkVisualizer visualizer;
+public class NetworkFrame extends JFrame {
+    private final NetworkVisualizer visualizer;
     private Thread thread;
     private boolean run;
 
-    public NeuralNetworkFrame(NeuralNetwork network) {
+    public NetworkFrame(NeuralNetwork network) {
         super("Neural Network");
 
-        NeuralNetworkGraphicCalculator calculator = new NeuralNetworkGraphicCalculator(network);
-        visualizer = new NeuralNetworkVisualizerImpl(calculator);
+        ViewModelBuilder viewModelBuilder = new ViewModelBuilder(network);
+        visualizer = new NetworkVisualizerImpl(viewModelBuilder);
 
         setSize(800, 600);
         setLayout(new BorderLayout());
@@ -31,10 +32,12 @@ public class NeuralNetworkFrame extends JFrame {
             }
         });
 
+        network.setActivationListener(visualizer::showActivation);
+
         run();
     }
 
-    protected void run() {
+    private void run() {
         if (!run) {
             if (thread != null) {
                 try {
@@ -44,14 +47,12 @@ public class NeuralNetworkFrame extends JFrame {
             }
 
             run = true;
-            thread = new Thread(() -> {
-                visualizer.showData();
-            });
+            thread = new Thread(visualizer::showActivation);
             thread.start();
         }
     }
 
-    protected void onWindowClosing() {
+    private void onWindowClosing() {
         if (thread != null) {
             try {
                 thread.join();

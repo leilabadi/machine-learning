@@ -1,9 +1,10 @@
 package fun.leilabadi.machinelearning.neuralnetwork;
 
 public abstract class NeuralNetwork {
-    protected final NeuronLayer[] layers;
+    final NeuronLayer[] layers;
+    private ActivationListener listener;
 
-    public NeuralNetwork(NeuronLayer[] layers) {
+    NeuralNetwork(NeuronLayer[] layers) {
         this.layers = layers;
     }
 
@@ -11,8 +12,17 @@ public abstract class NeuralNetwork {
         return layers;
     }
 
-    public abstract void activate(NeuralNetworkInputAdapter inputAdapter);
+    public void activate(ActivationAdapter adapter) {
+        activateFirstLayer(adapter);
+
+        if (listener != null) listener.onActivation();
+    }
 
     public abstract float[] getOutput();
 
+    public void setActivationListener(ActivationListener listener) {
+        this.listener = listener;
+    }
+
+    protected abstract void activateFirstLayer(ActivationAdapter adapter);
 }

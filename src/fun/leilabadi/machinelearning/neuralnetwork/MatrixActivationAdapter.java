@@ -2,10 +2,10 @@ package fun.leilabadi.machinelearning.neuralnetwork;
 
 import fun.leilabadi.machinelearning.common.Matrix;
 
-public class MatrixInputAdapter implements NeuralNetworkInputAdapter {
+public class MatrixActivationAdapter implements ActivationAdapter {
     private final Matrix matrix;
 
-    public MatrixInputAdapter(Matrix matrix) {
+    public MatrixActivationAdapter(Matrix matrix) {
         this.matrix = matrix;
     }
 
