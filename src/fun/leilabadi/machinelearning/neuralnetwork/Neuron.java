@@ -3,12 +3,16 @@ package fun.leilabadi.machinelearning.neuralnetwork;
 public class Neuron {
     private Link[] inputLinks;
     private Link[] outputLinks;
+    float activation;
+
+    Neuron() {
+    }
 
     public Link[] getInputLinks() {
         return inputLinks;
     }
 
-    public void setInputLinks(Link[] inputLinks) {
+    void setInputLinks(Link[] inputLinks) {
         this.inputLinks = inputLinks;
     }
 
@@ -16,7 +20,16 @@ public class Neuron {
         return outputLinks;
     }
 
-    public void setOutputLinks(Link[] outputLinks) {
+    void setOutputLinks(Link[] outputLinks) {
         this.outputLinks = outputLinks;
+    }
+
+    public float getActivation() {
+        return activation;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%.2f", activation);
     }
 }

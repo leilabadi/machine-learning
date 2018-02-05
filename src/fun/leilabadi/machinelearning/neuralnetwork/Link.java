@@ -5,12 +5,7 @@ public class Link {
     private final Neuron endingNeuron;
     private float weight;
 
-    public Link(Neuron startingNeuron, Neuron endingNeuron) {
-        this.startingNeuron = startingNeuron;
-        this.endingNeuron = endingNeuron;
-    }
-
-    public Link(Neuron startingNeuron, Neuron endingNeuron, float weight) {
+    Link(Neuron startingNeuron, Neuron endingNeuron, float weight) {
         this.startingNeuron = startingNeuron;
         this.endingNeuron = endingNeuron;
         this.weight = weight;
@@ -28,7 +23,12 @@ public class Link {
         return weight;
     }
 
-    public void setWeight(float weight) {
+    void setWeight(float weight) {
         this.weight = weight;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%.2f", weight);
     }
 }

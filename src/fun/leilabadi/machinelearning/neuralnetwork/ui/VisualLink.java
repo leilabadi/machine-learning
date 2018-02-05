@@ -1,18 +1,18 @@
-package fun.leilabadi.machinelearning.neuralnetwork.viewmodels;
+package fun.leilabadi.machinelearning.neuralnetwork.ui;
 
 import java.awt.*;
 import java.awt.geom.Line2D;
 
-public class LinkViewModel {
+public class VisualLink {
 
     private final Line2D linkShape;
     private Paint paint;
 
-    public LinkViewModel(Line2D linkShape) {
+    public VisualLink(Line2D linkShape) {
         this.linkShape = linkShape;
     }
 
-    public LinkViewModel(Line2D linkShape, Paint paint) {
+    public VisualLink(Line2D linkShape, Paint paint) {
         this.linkShape = linkShape;
         this.paint = paint;
     }

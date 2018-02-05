@@ -22,4 +22,8 @@ public class Matrix {
     public float getElement(int i, int j) {
         return elements[i][j];
     }
+
+    public void setElement(int i, int j, float value) {
+        elements[i][j] = value;
+    }
 }

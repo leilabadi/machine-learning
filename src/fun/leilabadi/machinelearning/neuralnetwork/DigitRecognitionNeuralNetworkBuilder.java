@@ -13,7 +13,7 @@ public class DigitRecognitionNeuralNetworkBuilder extends NeuralNetworkBuilder {
     }
 
     private void buildDispatchedLayers() {
-        final NeuronLayer[] layers = new NeuronLayer[Constants.DIGIT_NETWORK_LAYER_COUNT];
+        final Layer[] layers = new Layer[Constants.DIGIT_NETWORK_LAYER_COUNT];
 
         final int[] neuronCounts = new int[]{
                 Constants.DIGIT_NETWORK_LAYER1_NEURON_COUNT,
@@ -30,7 +30,7 @@ public class DigitRecognitionNeuralNetworkBuilder extends NeuralNetworkBuilder {
 
     private void bindLayers() {
 
-        NeuronLayer previousLayer, currentLayer, nextLayer;
+        Layer previousLayer, currentLayer, nextLayer;
 
         //bind first layer
         currentLayer = network.layers[0];
@@ -40,7 +40,7 @@ public class DigitRecognitionNeuralNetworkBuilder extends NeuralNetworkBuilder {
         }
 
         //bind middle layer
-        for (int i = 1; i < network.getLayers().length - 1; i++) {
+        for (int i = 1; i < network.getLayerCount() - 1; i++) {
             previousLayer = network.layers[i - 1];
             currentLayer = network.layers[i];
             nextLayer = network.layers[i + 1];
@@ -57,29 +57,29 @@ public class DigitRecognitionNeuralNetworkBuilder extends NeuralNetworkBuilder {
         }
     }
 
-    private NeuronLayer createLayer(int neuronCount) {
+    private Layer createLayer(int neuronCount) {
         final Neuron[] neurons = new Neuron[neuronCount];
         for (int i = 0; i < neuronCount; i++) {
             neurons[i] = new Neuron();
         }
-        return new NeuronLayer(neurons);
+        return new Layer(neurons);
     }
 
-    private void bindNeuronLinks(Neuron neuron, NeuronLayer previousLayer, NeuronLayer nextLayer) {
+    private void bindNeuronLinks(Neuron neuron, Layer previousLayer, Layer nextLayer) {
 
         Random random = new Random();
 
         if (previousLayer != null) {
-            final Link[] inputLinks = new Link[previousLayer.getNeurons().length];
-            for (int i = 0; i < previousLayer.getNeurons().length; i++) {
+            final Link[] inputLinks = new Link[previousLayer.size()];
+            for (int i = 0; i < previousLayer.size(); i++) {
                 inputLinks[i] = new Link(previousLayer.getNeurons()[i], neuron, random.nextFloat());
             }
             neuron.setInputLinks(inputLinks);
         }
 
         if (nextLayer != null) {
-            final Link[] outputLinks = new Link[nextLayer.getNeurons().length];
-            for (int i = 0; i < nextLayer.getNeurons().length; i++) {
+            final Link[] outputLinks = new Link[nextLayer.size()];
+            for (int i = 0; i < nextLayer.size(); i++) {
                 outputLinks[i] = new Link(neuron, nextLayer.getNeurons()[i], random.nextFloat());
             }
             neuron.setOutputLinks(outputLinks);

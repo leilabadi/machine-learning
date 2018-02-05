@@ -10,7 +10,7 @@ public class MatrixActivationAdapter implements ActivationAdapter {
     }
 
     @Override
-    public float[] getActivations() {
+    public ActivationSet getActivations() {
 
         final float[] activations = new float[matrix.getRowCount() * matrix.getColumnCount()];
         for (int i = 0; i < matrix.getRowCount(); i++) {
@@ -18,6 +18,6 @@ public class MatrixActivationAdapter implements ActivationAdapter {
                 activations[i * matrix.getColumnCount() + j] = matrix.getElement(i, j);
             }
         }
-        return activations;
+        return new ActivationSet(activations);
     }
 }

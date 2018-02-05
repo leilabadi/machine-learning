@@ -1,28 +1,51 @@
 package fun.leilabadi.machinelearning.neuralnetwork;
 
 public abstract class NeuralNetwork {
-    final NeuronLayer[] layers;
+    final Layer[] layers;
     private ActivationListener listener;
 
-    NeuralNetwork(NeuronLayer[] layers) {
+    NeuralNetwork(Layer[] layers) {
         this.layers = layers;
     }
 
-    public NeuronLayer[] getLayers() {
+    public Layer[] getLayers() {
         return layers;
     }
-
-    public void activate(ActivationAdapter adapter) {
-        activateFirstLayer(adapter);
-
-        if (listener != null) listener.onActivation();
-    }
-
-    public abstract float[] getOutput();
 
     public void setActivationListener(ActivationListener listener) {
         this.listener = listener;
     }
 
-    protected abstract void activateFirstLayer(ActivationAdapter adapter);
+    protected Layer firstLayer() {
+        return layers[0];
+    }
+
+    protected Layer lastLayer() {
+        return layers[getLayerCount() - 1];
+    }
+
+    public int getLayerCount() {
+        return layers.length;
+    }
+
+    public abstract float[] getOutput();
+
+    public void activate(ActivationAdapter adapter) {
+        final ActivationSet activations = adapter.getActivations();
+        resetNeuronActivations();
+        activateLayers(activations);
+
+        if (listener != null)
+            listener.onActivation();
+    }
+
+    protected void resetNeuronActivations() {
+        for (Layer layer : layers) {
+            for (Neuron neuron : layer.getNeurons()) {
+                neuron.activation = 0;
+            }
+        }
+    }
+
+    protected abstract void activateLayers(ActivationSet activations);
 }
