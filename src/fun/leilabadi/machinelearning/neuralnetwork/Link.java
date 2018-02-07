@@ -1,29 +1,29 @@
 package fun.leilabadi.machinelearning.neuralnetwork;
 
 public class Link {
-    private final Neuron startingNeuron;
-    private final Neuron endingNeuron;
+    private final Neuron source;
+    private final Neuron destination;
     private float weight;
 
-    Link(Neuron startingNeuron, Neuron endingNeuron, float weight) {
-        this.startingNeuron = startingNeuron;
-        this.endingNeuron = endingNeuron;
+    Link(Neuron source, Neuron destination, float weight) {
+        this.source = source;
+        this.destination = destination;
         this.weight = weight;
     }
 
-    public Neuron getStartingNeuron() {
-        return startingNeuron;
+    public Neuron getSource() {
+        return source;
     }
 
-    public Neuron getEndingNeuron() {
-        return endingNeuron;
+    public Neuron getDestination() {
+        return destination;
     }
 
     public float getWeight() {
         return weight;
     }
 
-    void setWeight(float weight) {
+    protected void setWeight(float weight) {
         this.weight = weight;
     }
 

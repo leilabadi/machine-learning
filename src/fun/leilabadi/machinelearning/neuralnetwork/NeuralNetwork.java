@@ -1,11 +1,15 @@
 package fun.leilabadi.machinelearning.neuralnetwork;
 
-public abstract class NeuralNetwork {
-    final Layer[] layers;
-    private ActivationListener listener;
+import fun.leilabadi.machinelearning.neuralnetwork.functions.NormalizationFunction;
 
-    NeuralNetwork(Layer[] layers) {
+public abstract class NeuralNetwork {
+    protected final Layer[] layers;
+    protected final NormalizationFunction normalizationFunction;
+    protected ActivationListener listener;
+
+    NeuralNetwork(Layer[] layers, NormalizationFunction normalizationFunction) {
         this.layers = layers;
+        this.normalizationFunction = normalizationFunction;
     }
 
     public Layer[] getLayers() {

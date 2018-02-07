@@ -46,7 +46,7 @@ public class NetworkVisualizerImpl extends JComponent implements NetworkVisualiz
         DynamicModelUpdater.getInstance().updateVisualModel(visualNetwork, network);
 
         VisualLayer layer;
-        for (int i = 0; i < visualNetwork.getLayerCount() - 1; i++) {
+        for (int i = 0; i < visualNetwork.getLayerCount(); i++) {
             layer = visualNetwork.getLayers()[i];
             for (VisualNeuron neuron : layer.getNeurons()) {
                 for (VisualLink link : neuron.getLinks()) {

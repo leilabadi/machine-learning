@@ -33,20 +33,45 @@ public class DynamicModelUpdater {
         Link link;
         VisualLink visualLink;
         int colorElement;
-        for (int i = 0; i < network.getLayerCount() - 1; i++) {
+        float minWeight, maxWeight;
+        for (int i = 0; i < network.getLayerCount(); i++) {
             layer = network.getLayers()[i];
             visualLayer = visualNetwork.getLayers()[i];
             for (int j = 0; j < layer.size(); j++) {
                 neuron = layer.getNeurons()[j];
                 visualNeuron = visualLayer.getNeurons()[j];
-                colorElement = (int) (256 * neuron.getActivation());
+                colorElement = (int) (255 * neuron.getActivation());
                 visualNeuron.setPaint(new Color(colorElement, colorElement, colorElement));
-                for (int k = 0; k < neuron.getOutputLinks().length; k++) {
-                    link = neuron.getOutputLinks()[k];
-                    visualLink = visualNeuron.getLinks()[k];
-                    visualLink.setPaint(new Color(0, (int) (256 * link.getWeight()), 0));
+
+                if (neuron.getForwardLinks().length > 0) {
+                    minWeight = getMinWeight(neuron.getForwardLinks());
+                    maxWeight = getMaxWeight(neuron.getForwardLinks());
+                    for (int k = 0; k < neuron.getForwardLinks().length; k++) {
+                        link = neuron.getForwardLinks()[k];
+                        visualLink = visualNeuron.getLinks()[k];
+                        colorElement = (int) (255 * (link.getWeight() - minWeight) / (maxWeight - minWeight));
+                        visualLink.setPaint(new Color(0, colorElement, 0));
+                    }
                 }
             }
         }
+    }
+
+    private float getMinWeight(Link[] links) {
+        float min = links[0].getWeight();
+        for (int i = 1; i < links.length; i++) {
+            if (links[i].getWeight() < min)
+                min = links[i].getWeight();
+        }
+        return min;
+    }
+
+    private float getMaxWeight(Link[] links) {
+        float max = links[0].getWeight();
+        for (int i = 1; i < links.length; i++) {
+            if (links[i].getWeight() > max)
+                max = links[i].getWeight();
+        }
+        return max;
     }
 }

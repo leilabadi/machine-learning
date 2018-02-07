@@ -70,7 +70,7 @@ public class NetworkFrame extends JFrame {
     private void feedSampleActivations() {
         Matrix matrix;
         Random random = new Random();
-        for (int index = 0; index < 20; index++) {
+        for (int index = 0; index < 40; index++) {
             matrix = new SquareMatrix(Constants.DIGIT_NETWORK_ACTIVATION_MATRIX_SIZE);
             for (int i = 0; i < Constants.DIGIT_NETWORK_ACTIVATION_MATRIX_SIZE; i++) {
                 for (int j = 0; j < Constants.DIGIT_NETWORK_ACTIVATION_MATRIX_SIZE; j++) {
@@ -80,7 +80,7 @@ public class NetworkFrame extends JFrame {
             network.activate(new MatrixActivationAdapter(matrix));
 
             try {
-                Thread.sleep(300);
+                Thread.sleep(400);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

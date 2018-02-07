@@ -1,31 +1,36 @@
 package fun.leilabadi.machinelearning.neuralnetwork;
 
 public class Neuron {
-    private Link[] inputLinks;
-    private Link[] outputLinks;
-    float activation;
+    private Link[] forwardLinks;
+    private Link[] backwardLinks;
+    protected float activation;
+    protected float bias;
 
     Neuron() {
     }
 
-    public Link[] getInputLinks() {
-        return inputLinks;
+    public Link[] getForwardLinks() {
+        return forwardLinks;
     }
 
-    void setInputLinks(Link[] inputLinks) {
-        this.inputLinks = inputLinks;
+    protected void setForwardLinks(Link[] forwardLinks) {
+        this.forwardLinks = forwardLinks;
     }
 
-    public Link[] getOutputLinks() {
-        return outputLinks;
+    public Link[] getBackwardLinks() {
+        return backwardLinks;
     }
 
-    void setOutputLinks(Link[] outputLinks) {
-        this.outputLinks = outputLinks;
+    protected void setBackwardLinks(Link[] backwardLinks) {
+        this.backwardLinks = backwardLinks;
     }
 
     public float getActivation() {
         return activation;
+    }
+
+    public float getBias() {
+        return bias;
     }
 
     @Override

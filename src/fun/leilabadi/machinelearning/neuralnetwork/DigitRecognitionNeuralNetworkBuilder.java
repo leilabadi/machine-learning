@@ -1,6 +1,7 @@
 package fun.leilabadi.machinelearning.neuralnetwork;
 
 import fun.leilabadi.machinelearning.Constants;
+import fun.leilabadi.machinelearning.neuralnetwork.functions.SigmoidFunction;
 
 import java.util.Random;
 
@@ -25,22 +26,24 @@ public class DigitRecognitionNeuralNetworkBuilder extends NeuralNetworkBuilder {
             layers[i] = createLayer(neuronCounts[i]);
         }
 
-        network = new SimpleNetwork(layers);
+        network = new SimpleNetwork(layers, new SigmoidFunction());
     }
 
     private void bindLayers() {
 
+        int i;
         Layer previousLayer, currentLayer, nextLayer;
 
         //bind first layer
-        currentLayer = network.layers[0];
-        nextLayer = network.layers[1];
+        i = 0;
+        currentLayer = network.layers[i];
+        nextLayer = network.layers[i + 1];
         for (Neuron neuron : currentLayer.getNeurons()) {
             bindNeuronLinks(neuron, null, nextLayer);
         }
 
         //bind middle layer
-        for (int i = 1; i < network.getLayerCount() - 1; i++) {
+        for (i = 1; i < network.getLayerCount() - 1; i++) {
             previousLayer = network.layers[i - 1];
             currentLayer = network.layers[i];
             nextLayer = network.layers[i + 1];
@@ -50,8 +53,8 @@ public class DigitRecognitionNeuralNetworkBuilder extends NeuralNetworkBuilder {
         }
 
         //bind last layer
-        previousLayer = network.layers[1];
-        currentLayer = network.layers[2];
+        previousLayer = network.layers[i - 1];
+        currentLayer = network.layers[i];
         for (Neuron neuron : currentLayer.getNeurons()) {
             bindNeuronLinks(neuron, previousLayer, null);
         }
@@ -69,20 +72,22 @@ public class DigitRecognitionNeuralNetworkBuilder extends NeuralNetworkBuilder {
 
         Random random = new Random();
 
+        //link neuron to the previous layer
         if (previousLayer != null) {
             final Link[] inputLinks = new Link[previousLayer.size()];
             for (int i = 0; i < previousLayer.size(); i++) {
-                inputLinks[i] = new Link(previousLayer.getNeurons()[i], neuron, random.nextFloat());
+                inputLinks[i] = new Link(previousLayer.getNeurons()[i], neuron, 0);
             }
-            neuron.setInputLinks(inputLinks);
-        }
+            neuron.setBackwardLinks(inputLinks);
+        } else neuron.setBackwardLinks(new Link[0]);
 
+        //link neuron to the next layer
         if (nextLayer != null) {
             final Link[] outputLinks = new Link[nextLayer.size()];
             for (int i = 0; i < nextLayer.size(); i++) {
-                outputLinks[i] = new Link(neuron, nextLayer.getNeurons()[i], random.nextFloat());
+                outputLinks[i] = new Link(neuron, nextLayer.getNeurons()[i], 2 * random.nextFloat() - 1);
             }
-            neuron.setOutputLinks(outputLinks);
-        }
+            neuron.setForwardLinks(outputLinks);
+        } else neuron.setForwardLinks(new Link[0]);
     }
 }

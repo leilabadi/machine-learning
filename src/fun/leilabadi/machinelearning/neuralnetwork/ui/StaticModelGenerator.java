@@ -40,11 +40,9 @@ public class StaticModelGenerator {
             visualNeurons = new VisualNeuron[layer.size()];
             layers[i] = (new VisualLayer(visualNeurons));
             neuronDistance = height / layer.size();
-            ;
 
             y = neuronDistance / 2;
-            for (int j = 0; j < layer.size();
-                 j++) {
+            for (int j = 0; j < layer.size(); j++) {
                 circle = new Ellipse2D.Double(x - neuronRadius, y - neuronRadius, 2 * neuronRadius, 2 * neuronRadius);
                 visualNeurons[j] = new VisualNeuron(circle, paint);
                 y += neuronDistance;
