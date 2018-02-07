@@ -33,14 +33,16 @@ public class DynamicModelUpdater {
         Link link;
         VisualLink visualLink;
         int colorElement;
+        float maxActivation;
         float minWeight, maxWeight;
         for (int i = 0; i < network.getLayerCount(); i++) {
             layer = network.getLayers()[i];
             visualLayer = visualNetwork.getLayers()[i];
+            maxActivation = getMaxActivation(layer.getNeurons());
             for (int j = 0; j < layer.size(); j++) {
                 neuron = layer.getNeurons()[j];
                 visualNeuron = visualLayer.getNeurons()[j];
-                colorElement = (int) (255 * neuron.getActivation());
+                colorElement = (int) (255 * neuron.getActivation() / maxActivation);
                 visualNeuron.setPaint(new Color(colorElement, colorElement, colorElement));
 
                 if (neuron.getForwardLinks().length > 0) {
@@ -55,6 +57,15 @@ public class DynamicModelUpdater {
                 }
             }
         }
+    }
+
+    private float getMaxActivation(Neuron[] neurons) {
+        float max = neurons[0].getActivation();
+        for (int i = 1; i < neurons.length; i++) {
+            if (neurons[i].getActivation() > max)
+                max = neurons[i].getActivation();
+        }
+        return max;
     }
 
     private float getMinWeight(Link[] links) {
